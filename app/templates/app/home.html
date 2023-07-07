@@ -1,0 +1,73 @@
+{% extends 'app/base.html' %}
+{% load static  %}
+{% block banner_slider  %}
+<div id="carouselExampleDark" class="carousel carousel-dark slide mgt-100" style='z-index: 0; margin-button: 30px'>
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+      <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
+      <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
+      <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="3" aria-label="Slide 4"></button>
+    </div>
+    <div class="carousel-inner ">
+      <div class="carousel-item active align-items-center" data-bs-interval="10000">
+        <img src="{% static 'app/images/banner/slide1.webp' %}" class="d-block w100" alt="banner1" height = "800">
+        {% comment %} <div class="carousel-caption d-none d-md-block bg-success text-white">
+          <h5>Iphone 11</h5>
+          <p>sale 20% đến ngày 15/9</p>
+        </div> {% endcomment %}
+      </div>
+      <div class="carousel-item active align-items-center" data-bs-interval="10000">
+        <img src="{% static 'app/images/banner/slide2.webp' %}" class="d-block w100" alt="banner2" height = "800">
+        {% comment %} <div class="carousel-caption d-none d-md-block bg-success text-white">
+          <h5>Iphone 12</h5>
+          <p>sale 15% đến ngày 15/9</p>
+        </div> {% endcomment %}
+      </div>
+      <div class="carousel-item active align-items-center" data-bs-interval="10000">
+        <img src="{% static 'app/images/banner/slide3.webp' %}" class="d-block w100" alt="banner3" height = "800">
+        {% comment %} <div class="carousel-caption d-none d-md-block bg-success text-white">
+          <h5>Iphone 13</h5>
+          <p>sale 15% đến ngày 15/9</p> 
+        </div> {% endcomment %}
+      </div>
+      <div class="carousel-item active align-items-center" data-bs-interval="10000">
+        <img src="{% static 'app/images/banner/slide4.webp' %}" class="d-block w100" alt="banner4" height = "800">
+        {% comment %} <div class="carousel-caption d-none d-md-block bg-success text-white">
+          <h5>Iphone 14</h5>
+          <p>sale 10% đến ngày 15/9</p>
+        </div> {% endcomment %}
+      </div>
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+    
+</div>
+{% endblock banner_slider %}
+{% block main-content %}
+<div class = "row hw-100 mgbtm-40">
+  {%for product in products%}
+  <div class = "col-lg-3 mgbtm-20">
+    <img class="thumbnail" style = 'width: 100%; height: 270px'src ="{{product.ImageURL}}">
+    <div class = "box-element product">
+      <h6><strong>{{product.name}}</strong></h6>
+      <hr>
+      <script>
+        function reloadPage() {
+          location.reload(true);
+        }
+      </script>
+      <button onclick="reloadPage()" data-product={{product.id}} data-action = "add" class ="btn btn-outline-secondary add-btn update-cart">Add in cart</button>
+      <a class= "btn btn-outline-success" href ="#">View</a>
+      <h3 style = "display: inline-block; float: right "><strong style='font-size: smaller'>${{product.price | floatformat:2}}</strong></h3>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock main-content %}

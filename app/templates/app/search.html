@@ -1,0 +1,40 @@
+{% extends 'app/base.html' %}
+{% load static  %}
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="">
+        <link href="{% static 'app/css/style.css'%}" rel='stylesheet'>
+    </head>
+    <body >
+        {% block search %}
+        <div class="mgt-100 row hw-100 mgbtm-40">
+            <h5>Result search for {{searched}}</h5> <br/>
+            {% for key in keys %}
+            <div class = "col-lg-3">
+                <img class="thumbnail" style = 'width: 100%; height: 270px'src ="{{key.ImageURL}}">
+                <div class = "box-element product">
+                  <h6><strong>{{key.name}}</strong></h6>
+                  <hr>
+                  <script>
+                    function reloadPage() {
+                      location.reload(true);
+                    }
+                  </script>
+                  <button onclick="reloadPage()" data-product={{key.id}} data-action = "add" class ="btn btn-outline-secondary add-btn update-cart">Add in cart</button>
+                  <a class= "btn btn-outline-success" href ="#">View</a>
+                  <h3 style = "display: inline-block; float: right "><strong style='font-size: smaller'>${{key.price | floatformat:2}}</strong></h3>
+                </div>
+              </div>
+            {% endfor %}
+        </div>
+        
+        {% endblock search %}
+    </body>
+</html>
