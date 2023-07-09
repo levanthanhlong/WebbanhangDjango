@@ -64,10 +64,10 @@
                       Sản Phẩm
                     </a>
                     <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" href="#">sữa</a></li>
-                      <li><a class="dropdown-item" href="#">sữa</a></li>
-                      <li><a class="dropdown-item" href="#">sữa</a></li>
-                      <li><a class="dropdown-item" href="#">sữa</a></li>
+                      {% for category in categories %}
+                        <li><a class="dropdown-item" href="{% url 'category' %}?category={{category.slug}}">{{category.name}}</a></li>
+                      {% endfor %}
+                     
                     </ul>
                   </li>
                   <li class="nav-item">
@@ -119,6 +119,8 @@
         {% block register %}{% endblock register %}
         <!--Searchhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh-->
         {% block search %}{% endblock search %}
+        <!--Categoryyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy-->
+        {% block category %}{% endblock category %}
         <!--Footerrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr-->
         <footer class = "container--fluid bg-success text-center fixed-bottom p-2 mt-5"> 
           copyright 2022

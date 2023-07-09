@@ -9,7 +9,14 @@ from django.contrib import messages
 # hien thi cua trang web
 # Create your views here.
 
-
+def category(request):
+    categories = Category.objects.filter(is_sub = False)
+    active_catergory = request.GET.get('category','')
+    if active_catergory:
+        products = Product.objects.filter(category__slug = active_catergory)
+    
+    context = {'categories':categories,'products':products,'active_catergory':active_catergory}
+    return render(request, 'app/category.html', context)
 
 def search(request):
     if request.method == "POST":
@@ -24,8 +31,8 @@ def search(request):
         items = []
         order = {'get_cart_items':0, 'get_cart_total':0}
         cartItems = order['get_cart_items']
-    
-    return render(request, 'app/search.html',{"searched": searched,"keys":keys,'items':items,'order':order,'cartItems':cartItems})
+    categories = Category.objects.filter(is_sub = False)
+    return render(request, 'app/search.html',{"searched": searched,"keys":keys,'items':items,'order':order,'cartItems':cartItems,'categories':categories})
 
 def register(request):
     form = CreateUserForm()
@@ -34,7 +41,8 @@ def register(request):
         if form.is_valid():
             form.save()
             return redirect('login')
-    context = {'form': form}
+    categories = Category.objects.filter(is_sub = False)
+    context = {'form': form, 'categories':categories}
     return render(request, 'app/register.html', context)
 
 def loginPage(request):
@@ -50,7 +58,8 @@ def loginPage(request):
             isLoggedIn = True
             return redirect('home')
         else: messages.info(request,'user or password is not correct!')
-    context = {}
+    categories = Category.objects.filter(is_sub = False)
+    context = {'categories':categories}
     return render(request, 'app/login.html', context)
 
 def logoutPage(request):
@@ -73,7 +82,8 @@ def home(request):
         order = {'get_cart_items':0, 'get_cart_total':0}
         cartItems = order['get_cart_items']
     products = Product.objects.all()
-    context = {'products': products,'cartItems': cartItems}
+    categories = Category.objects.filter(is_sub = False)
+    context = {'products': products,'cartItems': cartItems,'categories':categories}
     return render(request,'app/home.html', context)
 
 def cart(request):
@@ -86,7 +96,8 @@ def cart(request):
         items = []
         order = {'get_cart_items':0, 'get_cart_total':0}
         cartItems = order['get_cart_items']
-    context = {'items':items,'order':order,'cartItems':cartItems}
+    categories = Category.objects.filter(is_sub = False)
+    context = {'items':items,'order':order,'cartItems':cartItems,'categories':categories}
     return render(request,'app/cart.html', context)
 
 def checkout(request):
@@ -99,7 +110,8 @@ def checkout(request):
         items = []
         order = {'get_cart_items':0, 'get_cart_total':0}
         cartItems = order['get_cart_items']
-    context = {'items':items,'order':order,'cartItems':cartItems}
+    categories = Category.objects.filter(is_sub = False)
+    context = {'items':items,'order':order,'cartItems':cartItems,'categories':categories}
     return render(request,'app/checkout.html', context)
 
 def updateItem(request):
