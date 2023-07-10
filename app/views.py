@@ -9,6 +9,22 @@ from django.contrib import messages
 # hien thi cua trang web
 # Create your views here.
 
+def detail(request):
+    if request.user.is_authenticated:
+        customer = request.user
+        order, created = Order.objects.get_or_create(customer = customer, complete = False)
+        items = order.orderitem_set.all()
+        cartItems = order.get_cart_items
+    else:
+        items = []
+        order = {'get_cart_items':0, 'get_cart_total':0}
+        cartItems = order['get_cart_items']
+    id = request.GET.get('id','')
+    products = Product.objects.filter(id = id)
+    categories = Category.objects.filter(is_sub = False)
+    context = {'products':products,'items':items,'order':order,'cartItems':cartItems,'categories':categories}
+    return render(request,'app/detail.html', context)
+
 def category(request):
     categories = Category.objects.filter(is_sub = False)
     active_catergory = request.GET.get('category','')
