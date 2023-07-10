@@ -37,7 +37,7 @@ def category(request):
 def search(request):
     if request.method == "POST":
         searched = request.POST["searched"]
-        keys = Product.objects.filter(name__contains = searched)
+        products = Product.objects.filter(name__contains = searched)
     if request.user.is_authenticated:
         customer = request.user
         order, created = Order.objects.get_or_create(customer = customer, complete = False)
@@ -48,7 +48,7 @@ def search(request):
         order = {'get_cart_items':0, 'get_cart_total':0}
         cartItems = order['get_cart_items']
     categories = Category.objects.filter(is_sub = False)
-    return render(request, 'app/search.html',{"searched": searched,"keys":keys,'items':items,'order':order,'cartItems':cartItems,'categories':categories})
+    return render(request, 'app/search.html',{"searched": searched,"products":products,'items':items,'order':order,'cartItems':cartItems,'categories':categories})
 
 def register(request):
     form = CreateUserForm()
