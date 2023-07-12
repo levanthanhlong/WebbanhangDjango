@@ -49,11 +49,11 @@
     </button>
     
 </div>
-{% endblock banner_slider %}
+{% endblock banner_slider%}
 {% block main-content %}
-<div class = "row hw-100 ">
+<div class = "row hw-100 mgrl-50" style="">
   {%for product in products%}
-  <div class = "col-lg-3 mgbtm-50">
+  <div class = "col-lg-3 mgbtm-50 w25">
     <img class="thumbnail" style = 'width: 100%; height: 270px'src ="{{product.ImageURL}}">
     <div class = "box-element product">
       <h6><strong>{{product.name}}</strong></h6>
