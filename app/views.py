@@ -31,7 +31,19 @@ def category(request):
     if active_catergory:
         products = Product.objects.filter(category__slug = active_catergory)
     
-    context = {'categories':categories,'products':products,'active_catergory':active_catergory}
+    if request.user.is_authenticated:
+        customer = request.user
+        order, created = Order.objects.get_or_create(customer = customer, complete = False)
+        items = order.orderitem_set.all()
+        cartItems = order.get_cart_items
+    else:
+        items = []
+        order = {'get_cart_items':0, 'get_cart_total':0}
+        cartItems = order['get_cart_items']
+    products = Product.objects.all()
+    categories = Category.objects.filter(is_sub = False)
+    # context = {'products': products,'cartItems': cartItems,'categories':categories}
+    context = {'categories':categories,'products':products,'active_catergory':active_catergory,'cartItems': cartItems,'order':order }
     return render(request, 'app/category.html', context)
 
 def search(request):
