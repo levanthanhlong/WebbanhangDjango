@@ -42,6 +42,12 @@
     height: 100%; 
     width: 100%;
 }
+
+.img-product-style{
+    width: 100%!important;
+    height: 270px!important;
+
+}
 /* text-decoration */
 .tdn{
     text-decoration: none !important;
