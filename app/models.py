@@ -50,7 +50,7 @@ class Product(models.Model):
             url = ''
         return url
     
-
+# Đơn hàng gồm nhiều orderitem
 class Order(models.Model):
     customer = models.ForeignKey(User, on_delete=models.SET_NULL, blank=True, null=True)
     date_order = models.DateTimeField(auto_now_add=True)
@@ -69,7 +69,8 @@ class Order(models.Model):
         total = sum([item.get_total for item in orderitems])
         return total
     
-
+# -> một Order có thể liên kết với nhiều OrderItem -> mối quan hệ một nhiều     
+# từng mục sản phẩm trong đơn hàng, cung cấp số lượng của 1 sản phảm được mua
 class OrderItem(models.Model):
     product = models.ForeignKey(Product, on_delete=models.SET_NULL, blank=True, null=True)
     order = models.ForeignKey(Order, on_delete=models.SET_NULL, blank=True, null=True)
@@ -79,7 +80,8 @@ class OrderItem(models.Model):
     def get_total(self):
         total = self.product.price * self.quantity
         return total
-    
+
+ # Thông tin ship hàng  
 class ShippingAddress(models.Model):
     customer = models.ForeignKey(User, on_delete=models.SET_NULL, blank=True, null=True)
     order = models.ForeignKey(Order, on_delete=models.SET_NULL, blank=True, null=True)
@@ -90,5 +92,5 @@ class ShippingAddress(models.Model):
     date_added = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.addreessk
+        return self.addreess
     
